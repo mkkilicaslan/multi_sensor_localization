@@ -1,0 +1,33 @@
+# Configuration for robot_localization EKF
+frequency: 50
+sensor_timeout: 0.1
+two_d_mode: true
+
+# Coordinate Frames
+odom_frame: odom
+base_link_frame: base_link
+world_frame: odom
+
+# Publish the TF transform from odom -> base_link
+publish_tf: true
+
+# 1. Pose Input (from Laser Scan Matcher)
+# Order: [x, y, z, roll, pitch, yaw, vx, vy, vz, vroll, vpitch, vyaw, ax, ay, az]
+pose0: /pose_with_covariance_stamped
+pose0_config: [true,  true,  false, 
+               false, false, true, 
+               false, false, false, 
+               false, false, false, 
+               false, false, false]
+pose0_differential: true
+
+odom0: /odom/wheel 
+odom0_config: [true,  true,  false,
+                false, false, false,
+                true,  true,  false,
+                false, false, true,
+                false, false, false]
+odom0_queue_size: 10
+odom0_nodelay: true
+odom0_differential: false
+odom0_relative: false

@@ -1,0 +1,10 @@
+<launch>
+
+    <!-- Include the Jackal Gazebo world -->
+    <include file="$(find jackal_gazebo)/launch/hw_world.launch"></include>
+    
+    
+    <node name="hw1" pkg="hw1" type="hw1.py" output="screen"></node>
+   
+
+</launch>
