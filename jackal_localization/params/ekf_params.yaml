@@ -13,6 +13,7 @@ publish_tf: true
 
 # 1. Pose Input (from Laser Scan Matcher)
 # Order: [x, y, z, roll, pitch, yaw, vx, vy, vz, vroll, vpitch, vyaw, ax, ay, az]
+
 pose0: /pose_with_covariance_stamped
 pose0_config: [true,  true,  false, 
                false, false, true, 
@@ -31,3 +32,27 @@ odom0_queue_size: 10
 odom0_nodelay: true
 odom0_differential: false
 odom0_relative: false
+
+
+# odom1: /odom/depth
+# odom1_config: [true,  true,  false,
+#                 false, false, false,
+#                 true,  true,  false,
+#                 false, false, true,
+#                 false, false, false]
+# odom1_queue_size: 10
+# odom1_nodelay: true
+# odom1_differential: false
+# odom1_relative: false
+
+
+odom2: /odom/visual
+odom2_config: [true,  true,  false,
+                false, false, false,
+                true,  true,  false,
+                false, false, true,
+                false, false, false]
+odom2_queue_size: 10
+odom2_nodelay: true
+odom2_differential: false
+odom2_relative: false

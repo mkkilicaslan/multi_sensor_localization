@@ -31,6 +31,7 @@ class Class():
 
 
     def run(self):
+        rospy.loginfo("Node started.")
         while not rospy.is_shutdown():
             self.cmd_pub.publish(self.twist)
 
