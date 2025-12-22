@@ -354,7 +354,7 @@
 
     <sensor name="lidar_front" type="ray">
       <pose>0 0 0 0 0 0</pose>
-      <visualize>true</visualize>
+      <visualize>false</visualize>
       <update_rate>20</update_rate>
 
       <ray>
@@ -408,7 +408,7 @@
 
     <sensor name="lidar_back" type="ray">
       <pose>0 0 0 0 0 0</pose>
-      <visualize>true</visualize>
+      <visualize>false</visualize>
       <update_rate>20</update_rate>
 
       <ray>

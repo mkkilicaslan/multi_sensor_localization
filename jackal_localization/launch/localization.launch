@@ -64,10 +64,10 @@
 <!-- Scan Matching -->
 <node pkg="laser_scan_matcher" type="laser_scan_matcher_node" name="laser_scan_matcher_node" output="screen">
   <param name="tf_tolerance" value="0.1"/>
-  <!-- <remap from="scan" to="/scan_combined"/> -->
+  <remap from="scan" to="/scan_combined"/>
   <!-- <remap from="scan" to="/scan_front"/> -->
   <!-- <remap from="scan" to="/scan_back"/> -->
-  <remap from="scan" to="/depth/scan"/>
+  <!-- <remap from="scan" to="/depth/scan"/> -->
 
   <param name="fixed_frame" value="odom"/>
   <param name="base_frame" value="base_link"/>
@@ -76,6 +76,7 @@
   <param name="publish_pose" value="true"/>
   <param name="publish_pose_stamped" value="true"/>
   <param name="publish_pose_with_covariance_stamped" value="true"/>
+  <remap from="pose_with_covariance_stamped" to="/scan_match"/>
 </node>
 
 
