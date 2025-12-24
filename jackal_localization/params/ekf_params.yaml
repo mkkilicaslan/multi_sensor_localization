@@ -1,19 +1,21 @@
-# Configuration for robot_localization EKF
 frequency: 50
-sensor_timeout: 0.1
+sensor_timeout: 0.2         
 two_d_mode: true
+predict_to_current_time: true 
+
+# UKF Specific Sigma Point Parameters
+alpha: 0.001
+kappa: 0.0
+beta: 2.0
 
 # Coordinate Frames
 odom_frame: odom
 base_link_frame: base_link
 world_frame: odom
-
-# Publish the TF transform from odom -> base_link
 publish_tf: true
 
-# 1. Pose Input (from Laser Scan Matcher)
-# Order: [x, y, z, roll, pitch, yaw, vx, vy, vz, vroll, vpitch, vyaw, ax, ay, az]
-
+# Laser Scan Matcher
+# Converts absolute pose into relative movement.
 pose0: /scan_match
 pose0_config: [true,  true,  false, 
                false, false, true, 
@@ -22,20 +24,23 @@ pose0_config: [true,  true,  false,
                false, false, false]
 pose0_differential: true
 
-# odom0: /odom/wheel 
-# odom0_config: [true,  true,  false,
-#                 false, false, false,
-#                 true,  true,  false,
-#                 false, false, true,
-#                 false, false, false]
-# odom0_queue_size: 10
-# odom0_nodelay: true
-# odom0_differential: false
-# odom0_relative: false
+# Wheel Odometry
+# Fusing Velocities (X and Yaw)
+odom0: /odom/wheel
+odom0_config: [false, false, false,
+                false, false, false,
+                true,  false, false,
+                false, false, true,
+                false, false, false]
+odom0_queue_size: 10
+odom0_nodelay: true
+odom0_differential: false
+odom0_relative: false
 
-
+# Depth Odom
+# Fusing Velocities (X, Y, and Yaw)
 odom1: /odom/depth
-odom1_config: [true,  true,  false,
+odom1_config: [false, false, false,
                 false, false, false,
                 true,  true,  false,
                 false, false, true,
@@ -45,9 +50,10 @@ odom1_nodelay: true
 odom1_differential: false
 odom1_relative: false
 
-
+# Visual Odom
+# Fusing Velocities (X, Y, and Yaw)
 odom2: /odom/visual
-odom2_config: [true,  true,  false,
+odom2_config: [false, false, false,
                 false, false, false,
                 true,  true,  false,
                 false, false, true,
@@ -57,10 +63,7 @@ odom2_nodelay: true
 odom2_differential: false
 odom2_relative: false
 
-
-
-
-
+# --- Covariance Matrices ---
 process_noise_covariance: [1e-3, 0,    0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
                             0,    1e-3, 0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
                             0,    0,    1e-3, 0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
@@ -92,3 +95,13 @@ initial_estimate_covariance: [1e-9, 0,    0,    0,    0,    0,    0,    0,    0,
                               0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     1.0,  0,    0,
                               0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    1.0,  0,
                               0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    1.0]
+
+
+
+
+
+# [x, y, z,
+# roll, pitch, yaw,
+# vx,  vy, vz,
+# roll_dot, pitch_dot, yaw_dot,
+# ax, ay, az]
