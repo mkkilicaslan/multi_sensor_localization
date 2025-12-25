@@ -3,6 +3,7 @@
 import rospy
 import rosbag
 from geometry_msgs.msg import Twist
+from std_msgs.msg import String
 
 def replay_at_fixed_freq(bag_path, frequency):
     rospy.init_node('fixed_freq_replayer')
@@ -12,6 +13,8 @@ def replay_at_fixed_freq(bag_path, frequency):
         rospy.logwarn("use_sim_time is FALSE. Commands will follow system clock, not Gazebo.")
 
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+    finished_pub = rospy.Publisher('/replay_finished', String, queue_size=1)
+
     rate = rospy.Rate(frequency) # This follows Sim Time if use_sim_time is true
     
     rospy.loginfo(f"Opening bag: {bag_path} at {frequency}Hz")
@@ -36,6 +39,8 @@ def replay_at_fixed_freq(bag_path, frequency):
             
         bag.close()
         rospy.logwarn("Replay finished.")
+        finished_pub.publish(String(data="finished"))
+
 
     except Exception as e:
         rospy.logerr(f"Error: {e}")

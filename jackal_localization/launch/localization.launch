@@ -27,16 +27,16 @@
   <param name="odom_frame_id" value="odom"/>
   <param name="publish_tf" value="false"/>
   
-  <param name="Icp/PointToPlane"  value="true"/>
-  <param name="Icp/VoxelSize"     value="0.05"/>
+  <!-- <param name="Icp/PointToPlane"  value="true"/>
+  <param name="Icp/VoxelSize"     value="0.05"/> -->
 
   <param name="guess_frame_id" value=""/> 
   <param name="subscribe_odom" value="false"/>
-
+<!-- 
   <param name="Odom/ResetCountdown" value="1"/>
-  <param name="wait_for_transform_duration" value="0.2"/>
+  <param name="wait_for_transform_duration" value="0.2"/> -->
 
-  <param name="initial_pose" value="-5.0 -4.0 0.0 0 0 0.0"/>
+  <!-- <param name="initial_pose" value="-4.0 -4.0 0.0 0 0 0.0"/> -->
 </node>
 
 
@@ -56,7 +56,7 @@
   <param name="subscribe_depth" value="true"/>
   <param name="subscribe_odom" value="false"/>
 
-  <param name="initial_pose" value="-5.0 -4.0 0.0 0 0 0.0"/>
+  <!-- <param name="initial_pose" value="-4.0 -4.0 0.0 0 0 0.0"/> -->
 </node>
 
 
@@ -90,5 +90,11 @@
   <rosparam command="load" file="$(find jackal_localization)/params/ekf_params.yaml" />
 </node>
 
+
+<!-- Run UKF Localization Node -->
+<!-- <node pkg="robot_localization" type="ukf_localization_node" name="ukf_custom" clear_params="true">
+  <remap from="odometry/filtered" to="/odom/filtered"/>
+  <rosparam command="load" file="$(find jackal_localization)/params/ekf_params.yaml" />
+</node> -->
 
 </launch>

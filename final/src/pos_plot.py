@@ -3,6 +3,7 @@
 import rospy
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Point
+from std_msgs.msg import String
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import numpy as np
@@ -19,11 +20,13 @@ class OdomVisualizer:
         self.sq_errors = []
         self.current_rmse = 0.0
 
+        self.finished = False
         self.initial_pos = Point(-4.0, -4.0, 0)
 
         # Subscribers
         rospy.Subscriber('/ground_truth', Point, self.gt_callback)
         rospy.Subscriber('/odom/filtered', Odometry, self.odom_callback)
+        rospy.Subscriber('/replay_finished', String, self.finish_callback)
 
         # Setup Plot
         self.fig, self.ax = plt.subplots(figsize=(8, 6))
@@ -66,25 +69,31 @@ class OdomVisualizer:
             # Update RMSE: sqrt(mean(errors^2))
             self.current_rmse = np.sqrt(np.mean(self.sq_errors))
 
+    def finish_callback(self, msg: String):
+        rospy.loginfo("Received finish signal.")
+        self.finished = True
+
+
     def init_plot(self):
         self.ax.set_xlim(-20, 20)
         self.ax.set_ylim(-20, 20)
         return self.ln_gt, self.ln_odom, self.rmse_text
 
     def update_plot(self, frame):
-        # Update line data
-        self.ln_gt.set_data(self.gt_x, self.gt_y)
-        self.ln_odom.set_data(self.odom_x, self.odom_y)
-        
-        # Update RMSE text display
-        self.rmse_text.set_text(f"RMSE: {self.current_rmse:.4f} m")
-        
-        # Auto-adjust limits if data exists
-        if self.gt_x and self.odom_x:
-            all_x = self.gt_x + self.odom_x
-            all_y = self.gt_y + self.odom_y
-            self.ax.set_xlim(min(all_x) - 2, max(all_x) + 2)
-            self.ax.set_ylim(min(all_y) - 2, max(all_y) + 2)
+        if not self.finished:
+            # Update line data
+            self.ln_gt.set_data(self.gt_x, self.gt_y)
+            self.ln_odom.set_data(self.odom_x, self.odom_y)
+            
+            # Update RMSE text display
+            self.rmse_text.set_text(f"RMSE: {self.current_rmse:.4f} m")
+            
+            # Auto-adjust limits if data exists
+            if self.gt_x and self.odom_x:
+                all_x = self.gt_x + self.odom_x
+                all_y = self.gt_y + self.odom_y
+                self.ax.set_xlim(min(all_x) - 2, max(all_x) + 2)
+                self.ax.set_ylim(min(all_y) - 2, max(all_y) + 2)
             
         return self.ln_gt, self.ln_odom, self.rmse_text
 
