@@ -6,7 +6,5 @@
 <node name="ground_truth_publisher" pkg="final" type="ground_truth_publisher.py" output="screen"></node>
 
 <!-- <node name="hw1" pkg="hw1" type="hw1.py" output="screen"></node> -->
-   
-  
 
 </launch>

@@ -33,8 +33,7 @@ def replay_at_fixed_freq(bag_path, frequency):
             
 
             rospy.loginfo("Playing.")
-            # Sleep to maintain the desired frequency
-            # If Gazebo is slow, this sleep will automatically stretch
+            
             rate.sleep()
             
         bag.close()
