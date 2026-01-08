@@ -4,7 +4,7 @@
 <arg name="rqt_teleop" default="false"/>
 <arg name="visualize" default="true"/>
 <arg name="with_robot" default="false"/>
-<arg name="scene_file" default="$(find pedsim_simulator)/scenarios/square/new_25_v1.xml"/>
+<arg name="scene_file" default="$(find pedsim_simulator)/scenarios/office_scene.xml"/>
 <arg name="default_queue_size" default="10"/>
 <arg name="enable_groups" default="true"/>
 <arg name="simulation_factor" default="1.0"/> <!-- Speed up -->
