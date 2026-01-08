@@ -7,7 +7,7 @@
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
-## For Simulation
+## For Simulation (Unpause the simulation before running other codes)
 
 ```
 roslaunch final project.launch 
