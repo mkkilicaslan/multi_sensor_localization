@@ -19,7 +19,7 @@ roslaunch final project.launch
 roslaunch jackal_localization localization.launch 
 ```
 
-## For Movement Commands
+## For Movement Commands (Replace the path of the bag file with your directory)
 
 ```
 rosrun final sim_time_cmd_publisher.py  
